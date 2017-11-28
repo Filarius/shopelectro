@@ -22,9 +22,11 @@ test: static
 	$(dc) exec se-python python manage.py test -v 3 --liveserver=se-python:8020-8030 --parallel
 	$(dc) stop
 
+# prod only
 backup:
 	@docker-compose -f docker-compose-production.yml up se-backup-data
 
+# prod only
 restore:
 	@bash ../etc/se-backup-restore.sh
 
@@ -39,7 +41,7 @@ lint:
 deploy:
 	$(dcp) pull
 	$(dcp) stop
-	$(dcp) rm se-source
+	$(dcp) rm -f se-source
 	$(dcp) up -d
 	$(dcp) exec se-python python manage.py migrate
 	$(dcp) exec se-python python manage.py excel

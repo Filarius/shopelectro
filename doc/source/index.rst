@@ -8,6 +8,23 @@ Shopelectro's documentation
 
 todo: fill index.rst `with trello task <https://trello.com/c/DcK5doUE/289-se-se-rf-write-indexrst-with-template>`_
 
+Как развернуть среду на локальной машине
+========================================
+#. Клонируем репозиторий
+#. ``cp ./docker/.env.dist ./docker/.env``
+#. Наполняем файл .env стандартными значениями. Пароли можно делать просто случайными.
+#. В папке ``<proj root>/docker`` запускаем:
+
+```
+alias dc="docker-compose"
+
+dc pull
+dc up -d se-python
+dc exec se-python python3 manage.py migrate
+dc exec se-python python3 manage.py loaddata shopelectro/fixtures/dump.json
+dc run se-nodejs
+```
+
 Как сгенерировать документацию
 ==============================
 На локальной машине, для проверки.
