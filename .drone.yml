@@ -100,6 +100,15 @@ pipeline:
       branch: master
     secrets: [ SLACK_WEBHOOK ]
 
+  deploy:
+    image: docker/compose:1.17.1
+    commands:
+      - cd docker
+      - make deploy
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /root/prog/shopelectro/docker/.env:/drone/src/github.com/fidals/shopelectro/commit/${DRONE_COMMIT_SHA}/docker/.env
+
 services:
   postgres:
     image: postgres
