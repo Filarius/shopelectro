@@ -103,6 +103,7 @@ pipeline:
   deploy:
     image: docker/compose:1.17.1
     commands:
+      - apk add make
       - cd docker
       - make deploy
     volumes:
